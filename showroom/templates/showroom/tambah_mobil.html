@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Mobil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f1f3f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #0d6efd;
+            font-weight: 600;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 10px 25px;
+            font-weight: 500;
+            border-radius: 8px;
+        }
+
+
+        .form-section {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container my-5">
+    <div class="card p-4">
+        <h1 class="text-center mb-4">Tambah Mobil Baru</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="row form-section">
+                <div class="col-md-6 mb-3">
+                    <label for="merk" class="form-label">Merk:</label>
+                    <input type="text" class="form-control" id="merk" name="merk" placeholder="Contoh: Toyota" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="model" class="form-label">Model:</label>
+                    <input type="text" class="form-control" id="model" name="model" placeholder="Contoh: Avanza" required>
+                </div>
+            </div>
+
+            <div class="row form-section">
+                <div class="col-md-6 mb-3">
+                    <label for="tahun" class="form-label">Tahun:</label>
+                    <input type="number" class="form-control" id="tahun" name="tahun" placeholder="Contoh: 2023" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="harga_dasar" class="form-label">Harga Dasar (Rp):</label>
+                    <input type="number" class="form-control" id="harga_dasar" name="harga_dasar" placeholder="Contoh: 250000000" required>
+                </div>
+            </div>
+
+            <div class="row form-section">
+                <div class="col-md-6 mb-3">
+                    <label for="pinjaman" class="form-label">Pinjaman (opsional):</label>
+                    <input type="number" class="form-control" id="pinjaman" name="pinjaman" placeholder="Contoh: 50000000">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="suku_bunga" class="form-label">Suku Bunga % (opsional):</label>
+                    <input type="number" step="0.01" class="form-control" id="suku_bunga" name="suku_bunga" placeholder="Contoh: 3.5">
+                </div>
+            </div>
+            
+            <div class="d-flex justify-content-start gap-3 mt-3">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                <a href="{% url 'daftar_mobil' %}" class="btn btn-secondary">Kembali</a>
+            </div>
+            
+            
+        </form>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

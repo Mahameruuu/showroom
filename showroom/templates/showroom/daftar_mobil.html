@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Mobil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Daftar Mobil</h1>
+    <a href="{% url 'tambah_mobil' %}" class="btn btn-primary mb-3">Tambah Mobil Baru</a>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-primary">
+            <tr>
+                <th>Merk</th>
+                <th>Model</th>
+                <th>Tahun</th>
+                <th>Harga Dasar</th>
+                <th>Pinjaman</th>
+                <th>Suku Bunga</th>
+                <th>Cicilan Bulanan</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mobil in mobils %}
+            <tr>
+                <td>{{ mobil.merk }}</td>
+                <td>{{ mobil.model }}</td>
+                <td>{{ mobil.tahun }}</td>
+                <td>Rp {{ mobil.harga_dasar|floatformat:2 }}</td>
+                <td>Rp {{ mobil.pinjaman|floatformat:2 }}</td>
+                <td>{{ mobil.suku_bunga }}%</td>
+                <td>Rp {{ mobil.cicilan_bulanan|floatformat:2 }}</td>
+                <td>
+                    <a href="{% url 'detail_mobil' mobil.id %}" class="btn btn-info btn-sm">Detail</a>
+                    <a href="{% url 'edit_mobil' mobil.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <button class="btn btn-danger btn-sm" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#deleteModal" 
+                            data-url="{% url 'hapus_mobil' mobil.id %}" 
+                            onclick="setDeleteUrl(this)">
+                        Hapus
+                    </button>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center">Tidak ada data mobil yang tersedia.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal Konfirmasi Hapus -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body">
+        Apakah Anda yakin ingin menghapus mobil ini? Tindakan ini tidak dapat dibatalkan.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <a id="confirmDeleteBtn" class="btn btn-danger" href="#">Hapus</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    function setDeleteUrl(button) {
+        var deleteUrl = button.getAttribute('data-url');
+        document.getElementById('confirmDeleteBtn').setAttribute('href', deleteUrl);
+    }
+</script>
+
+</body>
+</html>
